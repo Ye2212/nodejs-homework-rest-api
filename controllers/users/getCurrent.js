@@ -1,5 +1,3 @@
-// const { User } = require("../../models");
-
 const getCurrent = (req, res) => {
   console.log(req.user);
   const { email, password } = req.user;
