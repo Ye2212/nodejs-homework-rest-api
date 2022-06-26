@@ -1,6 +1,6 @@
 const getCurrent = (req, res) => {
   console.log(req.user);
-  const { email, password } = req.user;
+  const { email, password, subscription } = req.user;
 
   res.json({
     status: "success",
@@ -9,6 +9,7 @@ const getCurrent = (req, res) => {
       user: {
         email,
         password,
+        subscription,
       },
     },
   });

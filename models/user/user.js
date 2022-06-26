@@ -26,14 +26,20 @@ const userSchema = Schema(
 );
 
 const joiSignupSchema = Joi.object({
-  password: Joi.string().required(),
-  email: Joi.string().required(),
-  subscription: Joi.string().required(),
+  password: Joi.string().trim().required(),
+  email: Joi.string().trim().required(),
+  subscription: Joi.string()
+    .default("starter")
+    .valid("starter", "pro", "business")
+    .trim(),
   token: Joi.string().required(),
 });
 const joiLoginSchema = Joi.object({
-  password: Joi.string().required(),
-  email: Joi.string().required(),
+  password: Joi.string().trim().required(),
+  email: Joi.string().trim().required(),
+});
+const joiSubscriptionSchema = Joi.object({
+  subscription: Joi.any().valid("starter", "pro", "business"),
 });
 
 const User = model("user", userSchema);
@@ -41,4 +47,5 @@ module.exports = {
   User,
   joiSignupSchema,
   joiLoginSchema,
+  joiSubscriptionSchema,
 };
