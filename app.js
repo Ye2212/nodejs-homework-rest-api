@@ -2,6 +2,30 @@ const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
 require("dotenv").config();
+const nodemailer = require("nodemailer");
+
+const { META_PASSWORD } = process.env;
+const nodemailerConfig = {
+  host: "smtp.meta.ua",
+  port: 465,
+  secure: true,
+  auth: {
+    user: "ukolova_e@meta.ua",
+    pass: META_PASSWORD,
+  },
+};
+const transporter = nodemailer.createTransport(nodemailerConfig);
+const email = {
+  to: "tewisim185@meidir.com",
+  from: "ukolova_e@meta.ua",
+  subject: "New application from the site",
+  html: "<p>A new application has been receivd from the site</p>",
+};
+
+transporter
+  .sendMail(email)
+  .then(() => console.log("Email send success"))
+  .catch((error) => console.log(error.message));
 
 const usersRouter = require("./routes/api/users.js");
 const contactsRouter = require("./routes/api/contacts");
